@@ -26,6 +26,11 @@ self.addEventListener("push", (event) => {
     body: data.body || "",
     icon: "/icons/icon-192.png",
     badge: "/icons/badge-72.png",
+    // "image" shows a larger photo inside the notification itself. Support
+    // varies by platform (Android/Chrome shows it, iOS Safari currently
+    // ignores it) -- harmless to include either way, and the photo always
+    // shows in the feed regardless.
+    ...(data.imageUrl ? { image: data.imageUrl } : {}),
     data: { url: "/" },
   };
 

@@ -47,6 +47,18 @@ export default function AnnouncementsFeed({ initialAnnouncements }) {
         <article className="card" key={a.id}>
           <h2>{a.title}</h2>
           <time dateTime={a.createdAt}>{formatDate(a.createdAt)}</time>
+          {a.imageUrl && (
+            <img
+              src={a.imageUrl}
+              alt=""
+              style={{
+                width: "100%",
+                borderRadius: 10,
+                display: "block",
+                marginBottom: 10,
+              }}
+            />
+          )}
           <p>{a.body}</p>
         </article>
       ))}

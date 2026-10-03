@@ -9,15 +9,16 @@ phone when something new is posted -- without needing an app store listing.
 - A public page (`/`) lists current announcements. Anyone can open it, and
   it can be "installed" to a phone's home screen like a normal app.
 - A staff page (`/admin`), protected by a single shared password, is where
-  someone posts a new announcement. Posting it also sends a push
-  notification to every phone that's turned on alerts.
+  someone posts a new announcement, optionally with a photo. Posting it
+  also sends a push notification to every phone that's turned on alerts.
 - Notifications work through the browser's built-in Push API -- no separate
   push notification service or paid SDK required.
 
 **How it's built** -- Next.js (one app, handles both the pages and the
 small API behind them), Upstash Redis for storing announcements and
-notification subscriptions (generous free tier, no server to manage), and
-the `web-push` library for sending the actual push messages.
+notification subscriptions (generous free tier, no server to manage),
+Vercel Blob for storing uploaded photos, and the `web-push` library for
+sending the actual push messages.
 
 ---
 
@@ -72,6 +73,12 @@ way you would a shared door code.
 4. Deploy. Vercel gives you a URL like `gai-announcements.vercel.app`
    (you can later attach your own domain, e.g. `announcements.yourchurch.org`,
    for free in Vercel's Domains settings).
+5. To allow photos on announcements, connect a Vercel Blob store: in your
+   project, go to the **Storage** tab, click **Create Database**, choose
+   **Blob**, and connect it to this project. Unlike the Upstash setup, this
+   one needs no copying and pasting of keys -- Vercel wires up access
+   automatically the moment you connect it. Redeploy once after connecting
+   it so the change takes effect.
 
 **Option B -- straight from your computer, no GitHub:**
 

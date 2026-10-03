@@ -24,6 +24,8 @@ export default function AdminPage() {
   const [announcements, setAnnouncements] = useState([]);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
   const [posting, setPosting] = useState(false);
   const [postError, setPostError] = useState("");
   const [postResult, setPostResult] = useState("");
@@ -73,24 +75,55 @@ export default function AdminPage() {
     setToken("");
   }
 
+  function handleImageChange(e) {
+    const file = e.target.files?.[0] || null;
+    if (imagePreview) URL.revokeObjectURL(imagePreview);
+    setImageFile(file);
+    setImagePreview(file ? URL.createObjectURL(file) : "");
+  }
+
+  function clearImage(fileInputEl) {
+    if (imagePreview) URL.revokeObjectURL(imagePreview);
+    setImageFile(null);
+    setImagePreview("");
+    if (fileInputEl) fileInputEl.value = "";
+  }
+
   async function handlePost(e) {
     e.preventDefault();
     setPosting(true);
     setPostError("");
     setPostResult("");
     try {
+      let imageUrl;
+      if (imageFile) {
+        const formData = new FormData();
+        formData.append("file", imageFile);
+        const uploadRes = await fetch("/api/upload", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+          body: formData,
+        });
+        const uploadData = await uploadRes.json();
+        if (!uploadRes.ok) {
+          throw new Error(uploadData.error || "Could not upload image.");
+        }
+        imageUrl = uploadData.url;
+      }
+
       const res = await fetch("/api/announcements", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ title, body }),
+        body: JSON.stringify({ title, body, imageUrl }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Could not post announcement.");
       setTitle("");
       setBody("");
+      clearImage(document.getElementById("image"));
       setPostResult(
         data.push?.error
           ? `Posted, but notifications failed to send: ${data.push.error}`
@@ -176,6 +209,40 @@ export default function AdminPage() {
             required
           />
         </div>
+        <div className="field">
+          <label htmlFor="image">Photo (optional)</label>
+          <input
+            id="image"
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/gif"
+            onChange={handleImageChange}
+          />
+          <p className="text-muted" style={{ marginTop: 6 }}>
+            JPEG, PNG, WEBP, or GIF, up to 4MB.
+          </p>
+          {imagePreview && (
+            <div style={{ marginTop: 10 }}>
+              <img
+                src={imagePreview}
+                alt="Selected preview"
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: 220,
+                  borderRadius: 10,
+                  display: "block",
+                }}
+              />
+              <button
+                type="button"
+                className="btn secondary"
+                style={{ marginTop: 8 }}
+                onClick={() => clearImage(document.getElementById("image"))}
+              >
+                Remove photo
+              </button>
+            </div>
+          )}
+        </div>
         {postError && <p style={{ color: "#a3323b" }}>{postError}</p>}
         {postResult && <p className="text-muted">{postResult}</p>}
         <button className="btn" disabled={posting}>
@@ -189,6 +256,19 @@ export default function AdminPage() {
           <div>
             <h2>{a.title}</h2>
             <time dateTime={a.createdAt}>{formatDate(a.createdAt)}</time>
+            {a.imageUrl && (
+              <img
+                src={a.imageUrl}
+                alt=""
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: 180,
+                  borderRadius: 10,
+                  display: "block",
+                  marginBottom: 10,
+                }}
+              />
+            )}
             <p>{a.body}</p>
           </div>
           <button className="btn danger" onClick={() => handleDelete(a.id)}>

@@ -17,20 +17,20 @@ export async function POST(request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {
-    const { title, body } = await request.json();
+    const { title, body, imageUrl } = await request.json();
     if (!title?.trim() || !body?.trim()) {
       return NextResponse.json(
         { error: "Title and body are required." },
         { status: 400 }
       );
     }
-    const announcement = await addAnnouncement({ title, body });
+    const announcement = await addAnnouncement({ title, body, imageUrl });
 
     // Best-effort: a failure to push should not stop the announcement from
     // being saved and shown in the feed.
     let pushResult = { sent: 0, total: 0, error: null };
     try {
-      pushResult = await notifySubscribers({ title, body });
+      pushResult = await notifySubscribers({ title, body, imageUrl });
     } catch (err) {
       pushResult.error = err.message;
     }

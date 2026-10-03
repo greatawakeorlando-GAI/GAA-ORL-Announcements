@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { linkify } from "@/lib/linkify";
 
 const TOKEN_KEY = "gai_admin_token";
 
@@ -269,7 +270,7 @@ export default function AdminPage() {
                 }}
               />
             )}
-            <p>{a.body}</p>
+            <p>{linkify(a.body)}</p>
           </div>
           <button className="btn danger" onClick={() => handleDelete(a.id)}>
             Delete

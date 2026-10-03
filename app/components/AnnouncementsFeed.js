@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { linkify } from "@/lib/linkify";
 
 function formatDate(iso) {
   try {
@@ -59,7 +60,7 @@ export default function AnnouncementsFeed({ initialAnnouncements }) {
               }}
             />
           )}
-          <p>{a.body}</p>
+          <p>{linkify(a.body)}</p>
         </article>
       ))}
     </div>

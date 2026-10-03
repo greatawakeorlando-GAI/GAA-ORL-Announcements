@@ -3,7 +3,7 @@
   --surface: #ffffff;
   --text: #1f2430;
   --muted: #6b7280;
-  --brand: #7a1f2b; /* placeholder maroon -- swap for GAI's brand color */
+  --brand: #1c3f6e; /* deep blue -- change this one line any time you want a different shade */
   --brand-ink: #ffffff;
   --border: #e6e2dc;
   --radius: 14px;
@@ -26,6 +26,14 @@ body {
 
 a {
   color: inherit;
+}
+
+/* Links typed into an announcement's message should stand out and be
+   obviously tappable, unlike plain navigational links elsewhere. */
+.card p a {
+  color: var(--brand);
+  text-decoration: underline;
+  word-break: break-word;
 }
 
 .container {

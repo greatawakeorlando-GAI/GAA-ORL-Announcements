@@ -91,13 +91,6 @@ header.app-header p {
   color: var(--brand-ink);
 }
 
-/* Givebutter-style Give button: their golden yellow with a dark outline */
-.tab.give {
-  background: #ffbf00;
-  color: #222222;
-  border-color: #222222;
-}
-
 .tab.disabled {
   opacity: 0.45;
 }

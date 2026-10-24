@@ -36,14 +36,14 @@ export default async function HomePage() {
         {giveUrl ? (
           <a
             href={giveUrl}
-            className="tab"
+            className="tab give"
             target="_blank"
             rel="noopener noreferrer"
           >
             Give
           </a>
         ) : (
-          <span className="tab disabled" title="Giving link not set up yet">
+          <span className="tab give disabled" title="Giving link not set up yet">
             Give
           </span>
         )}

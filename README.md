@@ -69,6 +69,7 @@ way you would a shared door code.
    | `VAPID_SUBJECT` | `mailto:` + an email you monitor |
    | `ADMIN_PASSWORD` | from step 2 |
    | `NEXT_PUBLIC_CHURCH_NAME` | e.g. `Great Awakening International` |
+   | `NEXT_PUBLIC_GIVE_URL` | your online giving page (powers the "Give" button) |
 
 4. Deploy. Vercel gives you a URL like `gai-announcements.vercel.app`
    (you can later attach your own domain, e.g. `announcements.yourchurch.org`,

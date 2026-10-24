@@ -1,12 +1,12 @@
 """
-Generates simple placeholder PWA icons (a maroon rounded square with a bell
+Generates simple placeholder PWA icons (a blue rounded square with a bell
 glyph) so the app is installable out of the box. Swap these in
 public/icons/ for GAI's real logo whenever you like -- keep the same
 filenames and sizes and nothing else needs to change.
 """
 from PIL import Image, ImageDraw
 
-BRAND = (122, 31, 43)  # matches --brand in app/globals.css
+BRAND = (28, 63, 110)  # matches --brand in app/globals.css
 WHITE = (255, 255, 255)
 
 def bell_path(size, scale=0.55):

@@ -64,6 +64,37 @@ header.app-header p {
   opacity: 0.85;
 }
 
+/* Two-button bar under the header: Announcements | Give */
+.tab-bar {
+  display: flex;
+  gap: 10px;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 16px 16px 0;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
+  padding: 12px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--brand);
+  background: transparent;
+  border: 2px solid var(--brand);
+}
+
+.tab.active {
+  background: var(--brand);
+  color: var(--brand-ink);
+}
+
+.tab.disabled {
+  opacity: 0.45;
+}
+
 .card {
   background: var(--surface);
   border: 1px solid var(--border);

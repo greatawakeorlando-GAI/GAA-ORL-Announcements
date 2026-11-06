@@ -66,7 +66,8 @@ header.app-header p {
 
 /* Two-button bar under the header: Announcements | Give */
 .tab-bar {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
   max-width: 640px;
   margin: 0 auto;
@@ -74,7 +75,6 @@ header.app-header p {
 }
 
 .tab {
-  flex: 1;
   text-align: center;
   text-decoration: none;
   padding: 12px 10px;
@@ -98,8 +98,14 @@ header.app-header p {
   border-color: #222222;
 }
 
+/* Extra link buttons: two per row; an odd one out spans the full width */
+.tab.link:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
 .tab.disabled {
   opacity: 0.45;
+  cursor: default;
 }
 
 .card {

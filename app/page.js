@@ -1,17 +1,37 @@
 import { getAnnouncements } from "@/lib/db";
 import AnnouncementsFeed from "./components/AnnouncementsFeed";
 import NotificationButton from "./components/NotificationButton";
-import { LINK_BUTTONS } from "@/lib/links";
 
 const churchName =
   process.env.NEXT_PUBLIC_CHURCH_NAME || "Great Awakening International";
 
-// Where the "Give" button sends people (your online giving page). Set this as
-// NEXT_PUBLIC_GIVE_URL in Vercel -> Settings -> Environment Variables.
+// Where the "Give" button sends people (your online giving page).
 const giveUrl = (
   process.env.NEXT_PUBLIC_GIVE_URL ||
   "https://givebutter.com/great-awakening-assembly-orlando-corporation"
 ).trim();
+
+// The extra link buttons. To turn one on, put its web address between the
+// quotes after "url:". A button with empty quotes shows as a greyed-out
+// placeholder that does nothing when tapped. "Contact Us" can also be an
+// email link, written like: "mailto:office@yourchurch.org"
+const LINK_BUTTONS = [
+  { label: "2027 Feast Days", url: "" },
+  { label: "About Us", url: "" },
+  { label: "Shabbat Schedule", url: "" },
+  { label: "Events", url: "" },
+  { label: "Contact Us", url: "" },
+];
+
+// Styles for the button bar live here so this one file is all that changes.
+const buttonStyles = `
+nav.tab-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 640px; margin: 0 auto; padding: 16px 16px 0; }
+nav.tab-bar .tab { display: block; flex: none; text-align: center; text-decoration: none; padding: 12px 10px; border-radius: 999px; font-weight: 700; font-size: 1rem; color: var(--brand); background: transparent; border: 2px solid var(--brand); }
+nav.tab-bar .tab.active { background: var(--brand); color: var(--brand-ink); }
+nav.tab-bar .tab.give { background: #ffbf00; color: #222222; border-color: #222222; }
+nav.tab-bar .tab.link:last-child:nth-child(odd) { grid-column: 1 / -1; }
+nav.tab-bar .tab.disabled { opacity: 0.45; cursor: default; }
+`;
 
 export const dynamic = "force-dynamic"; // always show the latest announcements
 
@@ -26,6 +46,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <style>{buttonStyles}</style>
       <header className="app-header">
         <h1>{churchName}</h1>
         <p>Announcements &amp; Updates</p>
@@ -50,7 +71,6 @@ export default async function HomePage() {
         )}
         {LINK_BUTTONS.map((l) => {
           const url = (l.url || "").trim();
-          // No address yet: show the button as a greyed-out placeholder.
           if (!url) {
             return (
               <span

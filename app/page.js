@@ -1,6 +1,7 @@
 import { getAnnouncements } from "@/lib/db";
 import AnnouncementsFeed from "./components/AnnouncementsFeed";
 import NotificationButton from "./components/NotificationButton";
+import { LINK_BUTTONS } from "@/lib/links";
 
 const churchName =
   process.env.NEXT_PUBLIC_CHURCH_NAME || "Great Awakening International";
@@ -47,6 +48,33 @@ export default async function HomePage() {
             Give
           </span>
         )}
+        {LINK_BUTTONS.map((l) => {
+          const url = (l.url || "").trim();
+          // No address yet: show the button as a greyed-out placeholder.
+          if (!url) {
+            return (
+              <span
+                key={l.label}
+                className="tab link disabled"
+                aria-disabled="true"
+              >
+                {l.label}
+              </span>
+            );
+          }
+          return (
+            <a
+              key={l.label}
+              href={url}
+              className="tab link"
+              {...(/^https?:/i.test(url)
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+            >
+              {l.label}
+            </a>
+          );
+        })}
       </nav>
       <main className="container">
         <NotificationButton />

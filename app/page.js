@@ -18,7 +18,7 @@ const giveUrl = (
 const LINK_BUTTONS = [
   { label: "2027 Feast Days", url: "" },
   { label: "About Us", url: "" },
-  { label: "Shabbat Schedule", url: "" },
+  { label: "Shabbat Schedule", url: "/shabbat.html" },
   { label: "Events", url: "/events.html" },
   { label: "Contact Us", url: "/contact.html" },
 ];

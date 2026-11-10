@@ -19,7 +19,7 @@ const LINK_BUTTONS = [
   { label: "2027 Feast Days", url: "" },
   { label: "About Us", url: "" },
   { label: "Shabbat Schedule", url: "" },
-  { label: "Events", url: "" },
+  { label: "Events", url: "/events.html" },
   { label: "Contact Us", url: "/contact.html" },
 ];
 

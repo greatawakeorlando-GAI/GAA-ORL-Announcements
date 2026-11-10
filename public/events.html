@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Events · Great Awakening Orlando</title>
+<meta name="theme-color" content="#1c3f6e" />
+<style>
+  :root {
+    --blue: #1c3f6e;
+    --blue-dark: #122a4b;
+    --blue-soft: #e6edf6;
+    --ink: #0f1a33;
+    --muted: #5b6785;
+    --line: #dbe3f5;
+    --bg: #f4f7fd;
+    --card: #ffffff;
+    --today: #ffb703;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 16px 14px 48px; }
+
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+  .back { color: var(--blue); text-decoration: none; font-weight: 600; font-size: 17px; white-space: nowrap; }
+  @media (max-width: 680px) { .org { font-size: 12px; letter-spacing: .1em; } }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+  .btn { border: 0; border-radius: 999px; padding: 10px 16px; font-size: 15px; font-weight: 600; cursor: pointer;
+    background: var(--blue); color: #fff; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+  .btn.ghost { background: var(--blue-soft); color: var(--blue-dark); }
+
+  /* ---------- The monthly graphic ---------- */
+  .poster { background: var(--card); border-radius: 22px; overflow: hidden; box-shadow: 0 10px 30px rgba(18,48,138,.12); }
+  .poster-head { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%); color: #fff;
+    padding: 22px 22px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .org { font-size: 14px; letter-spacing: .14em; text-transform: uppercase; opacity: .85; font-weight: 700; }
+  .month-title { font-size: clamp(30px, 6vw, 52px); font-weight: 800; line-height: 1.05; margin-top: 4px; }
+  .nav { display: flex; gap: 8px; }
+  .nav button { width: 46px; height: 46px; border-radius: 50%; border: 2px solid rgba(255,255,255,.55);
+    background: transparent; color: #fff; font-size: 22px; cursor: pointer; }
+  .nav button:hover { background: rgba(255,255,255,.15); }
+
+  .dow, .grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+  .dow div { padding: 10px 8px; font-weight: 700; font-size: 14px; color: var(--muted); text-transform: uppercase;
+    letter-spacing: .06em; text-align: center; border-bottom: 1px solid var(--line); }
+  .cell { min-height: 118px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 6px; }
+  .cell:nth-child(7n) { border-right: 0; }
+  .cell.out { background: #fafbfe; }
+  .cell.out .num { color: #b7c0d6; }
+  .num { font-weight: 700; font-size: 16px; display: inline-flex; width: 30px; height: 30px; align-items: center; justify-content: center; border-radius: 50%; }
+  .cell.today .num { background: var(--today); color: var(--ink); }
+  .chip { display: block; width: 100%; text-align: left; border: 0; cursor: pointer; margin-top: 4px;
+    background: var(--blue-soft); color: var(--blue-dark); border-left: 4px solid var(--blue);
+    border-radius: 6px; padding: 4px 6px; font-size: 13.5px; line-height: 1.25; font-weight: 600;
+    overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .chip.allday { background: var(--blue); color: #fff; border-left-color: var(--blue-dark); }
+  .chip .t { font-weight: 800; }
+  .more { font-size: 13px; color: var(--muted); margin-top: 3px; font-weight: 600; }
+  .dots { display: none; gap: 3px; margin-top: 4px; flex-wrap: wrap; justify-content: center; }
+  .dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); display: block; }
+
+  .poster-foot { padding: 12px 18px; font-size: 13px; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+
+  /* ---------- Agenda list (easy reading on phones) ---------- */
+  .agenda { margin-top: 22px; }
+  .agenda h2 { font-size: 22px; margin: 0 0 10px; }
+  .day { background: var(--card); border-radius: 16px; padding: 14px 16px; margin-bottom: 10px; display: flex; gap: 14px;
+    box-shadow: 0 2px 8px rgba(18,48,138,.06); }
+  .day.is-today { outline: 3px solid var(--today); }
+  .date-badge { flex: 0 0 64px; text-align: center; background: var(--blue); color: #fff; border-radius: 12px; padding: 8px 0; height: fit-content; }
+  .date-badge .dw { font-size: 13px; text-transform: uppercase; font-weight: 700; opacity: .9; }
+  .date-badge .dn { font-size: 28px; font-weight: 800; line-height: 1; }
+  .items { flex: 1; min-width: 0; }
+  .item { border: 0; background: none; text-align: left; width: 100%; padding: 4px 0 8px; cursor: pointer; color: inherit; }
+  .item + .item { border-top: 1px solid var(--line); padding-top: 8px; }
+  .item .it { font-size: 18px; font-weight: 700; }
+  .item .im { font-size: 15px; color: var(--muted); margin-top: 2px; }
+  .empty, .status { text-align: center; color: var(--muted); font-size: 17px; padding: 28px 10px; }
+
+  /* ---------- Event detail sheet ---------- */
+  .sheet-bg { position: fixed; inset: 0; background: rgba(15,26,51,.45); display: none; align-items: flex-end; justify-content: center; z-index: 50; }
+  .sheet-bg.open { display: flex; }
+  .sheet { background: #fff; width: 100%; max-width: 560px; border-radius: 22px 22px 0 0; padding: 22px 22px calc(22px + env(safe-area-inset-bottom)); max-height: 85vh; overflow: auto; }
+  @media (min-width: 700px) { .sheet-bg { align-items: center; } .sheet { border-radius: 22px; } }
+  .sheet h3 { font-size: 24px; margin: 0 0 8px; }
+  .sheet .meta { font-size: 17px; color: var(--muted); margin: 4px 0; }
+  .sheet .desc { font-size: 17px; line-height: 1.5; margin-top: 14px; white-space: pre-wrap; word-wrap: break-word; }
+  .sheet .desc a { color: var(--blue); }
+  .sheet .close { margin-top: 18px; width: 100%; justify-content: center; }
+
+  @media (max-width: 680px) {
+    .cell { min-height: 58px; padding: 4px 2px; text-align: center; }
+    .chip, .more { display: none; }
+    .dots { display: flex; }
+    .num { font-size: 15px; width: 28px; height: 28px; }
+    .dow div { font-size: 12px; padding: 8px 2px; }
+    .poster-head { padding: 18px 16px 14px; }
+    .cell.has { cursor: pointer; }
+  }
+
+  /* When saving as an image, always use the full desktop layout. */
+  .poster.capture { width: 1100px; }
+  .poster.capture .cell { min-height: 118px; padding: 6px; text-align: left; }
+  .poster.capture .chip, .poster.capture .more { display: -webkit-box; }
+  .poster.capture .more { display: block; }
+  .poster.capture .dots { display: none; }
+  .poster.capture .nav { visibility: hidden; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="back" href="/">‹ Home</a>
+    <div class="actions">
+      <a id="subscribe" class="btn ghost" href="#" target="_blank" rel="noopener" hidden>＋ Add to my calendar</a>
+      <button id="download" class="btn">⬇ Save image</button>
+    </div>
+  </div>
+
+  <section class="poster" id="poster">
+    <div class="poster-head">
+      <div>
+        <div class="org">Great Awakening Orlando · Events</div>
+        <div class="month-title" id="monthTitle">&nbsp;</div>
+      </div>
+      <div class="nav">
+        <button id="prev" aria-label="Previous month">‹</button>
+        <button id="next" aria-label="Next month">›</button>
+      </div>
+    </div>
+    <div class="dow"><div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div></div>
+    <div class="grid" id="grid"></div>
+    <div class="poster-foot"><span>Times shown in Eastern Time</span><span id="updated"></span></div>
+  </section>
+
+  <section class="agenda">
+    <h2 id="agendaTitle">This month</h2>
+    <div id="list"><div class="status">Loading events…</div></div>
+  </section>
+</div>
+
+<div class="sheet-bg" id="sheetBg">
+  <div class="sheet" role="dialog" aria-modal="true">
+    <h3 id="sTitle"></h3>
+    <div class="meta" id="sWhen"></div>
+    <div class="meta" id="sWhere"></div>
+    <div class="desc" id="sDesc"></div>
+    <button class="btn close" id="sClose">Close</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var TZ = 'America/New_York';
+  var API = '/api/events';
+  var DEMO = /[?&]demo=1/.test(location.search);
+
+  var params = new URLSearchParams(location.search);
+  var todayKey = dayKey(new Date());
+  var y = parseInt(params.get('year'), 10) || +todayKey.slice(0, 4);
+  var m = parseInt(params.get('month'), 10) || +todayKey.slice(5, 7);
+  var cache = {};
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  // ---------- date helpers (everything in Eastern Time) ----------
+  function dayKey(d) { // YYYY-MM-DD in church time zone
+    return new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
+  }
+  function addDays(key, n) {
+    var p = key.split('-').map(Number);
+    var d = new Date(Date.UTC(p[0], p[1] - 1, p[2] + n));
+    return d.toISOString().slice(0, 10);
+  }
+  function fmtTime(iso) {
+    return new Intl.DateTimeFormat('en-US', { timeZone: TZ, hour: 'numeric', minute: '2-digit' })
+      .format(new Date(iso)).replace(':00', '').replace(' AM', 'a').replace(' PM', 'p');
+  }
+  function fmtTimeLong(iso) {
+    return new Intl.DateTimeFormat('en-US', { timeZone: TZ, hour: 'numeric', minute: '2-digit' }).format(new Date(iso));
+  }
+  function fmtDayLong(key) {
+    var p = key.split('-').map(Number);
+    return new Intl.DateTimeFormat('en-US', { timeZone: 'UTC', weekday: 'long', month: 'long', day: 'numeric' })
+      .format(new Date(Date.UTC(p[0], p[1] - 1, p[2])));
+  }
+  function monthName(yy, mm) {
+    return new Intl.DateTimeFormat('en-US', { timeZone: 'UTC', month: 'long', year: 'numeric' })
+      .format(new Date(Date.UTC(yy, mm - 1, 1)));
+  }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  // Which days does an event appear on? (handles multi-day events)
+  function daysOf(ev) {
+    var first, last;
+    if (ev.allDay) {
+      first = ev.start;
+      last = ev.end ? addDays(ev.end, -1) : ev.start; // all-day end date is exclusive
+    } else {
+      first = dayKey(new Date(ev.start));
+      last = ev.end ? dayKey(new Date(new Date(ev.end).getTime() - 1)) : first;
+    }
+    if (last < first) last = first;
+    var out = [], k = first, guard = 0;
+    while (k <= last && guard++ < 62) { out.push(k); k = addDays(k, 1); }
+    return out;
+  }
+
+  // ---------- data ----------
+  function load(yy, mm) {
+    var key = yy + '-' + mm;
+    if (cache[key]) return Promise.resolve(cache[key]);
+    var p = DEMO ? Promise.resolve(demoData(yy, mm))
+      : fetch(API + '?year=' + yy + '&month=' + mm).then(function (r) {
+          return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || 'Could not load events'); return j; });
+        });
+    return p.then(function (data) { cache[key] = data; return data; });
+  }
+
+  // ---------- render ----------
+  function render(data) {
+    $('monthTitle').textContent = monthName(y, m);
+    $('agendaTitle').textContent = 'Events in ' + monthName(y, m).split(' ')[0];
+    if (data.subscribeUrl) { $('subscribe').href = data.subscribeUrl; $('subscribe').hidden = false; }
+    $('updated').textContent = data.updated ? 'Updated ' + new Intl.DateTimeFormat('en-US', { timeZone: TZ, month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }).format(new Date(data.updated)) : '';
+
+    var prefix = y + '-' + String(m).padStart(2, '0');
+    var byDay = {};
+    data.events.forEach(function (ev) {
+      daysOf(ev).forEach(function (k) { (byDay[k] = byDay[k] || []).push(ev); });
+    });
+    Object.keys(byDay).forEach(function (k) {
+      byDay[k].sort(function (a, b) {
+        if (a.allDay !== b.allDay) return a.allDay ? -1 : 1;
+        return a.start < b.start ? -1 : 1;
+      });
+    });
+
+    // Grid: start on the Sunday on/before the 1st; 6 weeks max, trimmed.
+    var firstKey = prefix + '-01';
+    var firstDow = new Date(Date.UTC(y, m - 1, 1)).getUTCDay();
+    var daysInMonth = new Date(Date.UTC(y, m, 0)).getUTCDate();
+    var totalCells = Math.ceil((firstDow + daysInMonth) / 7) * 7;
+    var start = addDays(firstKey, -firstDow);
+    var html = '';
+    for (var i = 0; i < totalCells; i++) {
+      var k = addDays(start, i);
+      var inMonth = k.slice(0, 7) === prefix;
+      var evs = inMonth ? (byDay[k] || []) : [];
+      var cls = 'cell' + (inMonth ? '' : ' out') + (k === todayKey ? ' today' : '') + (evs.length ? ' has' : '');
+      html += '<div class="' + cls + '" data-day="' + k + '"><span class="num">' + (+k.slice(8)) + '</span>';
+      var shown = evs.slice(0, 3);
+      shown.forEach(function (ev) {
+        html += '<button class="chip' + (ev.allDay ? ' allday' : '') + '" data-id="' + esc(ev.id) + '">' +
+          (ev.allDay ? '' : '<span class="t">' + fmtTime(ev.start) + '</span> ') + esc(ev.title) + '</button>';
+      });
+      if (evs.length > 3) html += '<div class="more">+' + (evs.length - 3) + ' more</div>';
+      if (evs.length) html += '<div class="dots">' + evs.slice(0, 4).map(function () { return '<i></i>'; }).join('') + '</div>';
+      html += '</div>';
+    }
+    $('grid').innerHTML = html;
+
+    // Agenda list
+    var keys = Object.keys(byDay).filter(function (k) { return k.slice(0, 7) === prefix; }).sort();
+    if (!keys.length) {
+      $('list').innerHTML = '<div class="empty">No events scheduled this month yet.</div>';
+    } else {
+      $('list').innerHTML = keys.map(function (k) {
+        var p = k.split('-').map(Number);
+        var dw = new Intl.DateTimeFormat('en-US', { timeZone: 'UTC', weekday: 'short' }).format(new Date(Date.UTC(p[0], p[1] - 1, p[2])));
+        return '<div class="day' + (k === todayKey ? ' is-today' : '') + '" id="d-' + k + '">' +
+          '<div class="date-badge"><div class="dw">' + dw + '</div><div class="dn">' + p[2] + '</div></div><div class="items">' +
+          byDay[k].map(function (ev) {
+            var when = ev.allDay ? 'All day' : fmtTimeLong(ev.start) + (ev.end ? ' – ' + fmtTimeLong(ev.end) : '');
+            return '<button class="item" data-id="' + esc(ev.id) + '"><div class="it">' + esc(ev.title) + '</div>' +
+              '<div class="im">' + when + (ev.location ? ' · ' + esc(ev.location) : '') + '</div></button>';
+          }).join('') + '</div></div>';
+      }).join('');
+    }
+
+    var lookup = {};
+    data.events.forEach(function (ev) { lookup[ev.id] = ev; });
+    document.querySelectorAll('[data-id]').forEach(function (el) {
+      el.onclick = function (e) { e.stopPropagation(); openSheet(lookup[el.getAttribute('data-id')]); };
+    });
+    // On phones, tapping a day jumps to it in the list
+    document.querySelectorAll('.cell.has').forEach(function (el) {
+      el.onclick = function () {
+        var t = document.getElementById('d-' + el.getAttribute('data-day'));
+        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      };
+    });
+  }
+
+  function linkify(text) {
+    // Google descriptions can contain simple HTML; keep links, drop other tags.
+    var tmp = document.createElement('div');
+    tmp.innerHTML = String(text).replace(/<br\s*\/?>/gi, '\n');
+    var plain = tmp.textContent || '';
+    return esc(plain).replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+  }
+
+  function openSheet(ev) {
+    if (!ev) return;
+    $('sTitle').textContent = ev.title;
+    var days = daysOf(ev);
+    var when = fmtDayLong(days[0]);
+    if (days.length > 1) when += ' – ' + fmtDayLong(days[days.length - 1]);
+    if (!ev.allDay) when += ' · ' + fmtTimeLong(ev.start) + (ev.end ? ' – ' + fmtTimeLong(ev.end) : '');
+    $('sWhen').textContent = when;
+    $('sWhere').textContent = ev.location ? '📍 ' + ev.location : '';
+    $('sDesc').innerHTML = ev.description ? linkify(ev.description) : '';
+    $('sheetBg').classList.add('open');
+  }
+  $('sClose').onclick = function () { $('sheetBg').classList.remove('open'); };
+  $('sheetBg').onclick = function (e) { if (e.target === $('sheetBg')) $('sheetBg').classList.remove('open'); };
+
+  function go(delta) {
+    m += delta;
+    if (m < 1) { m = 12; y--; }
+    if (m > 12) { m = 1; y++; }
+    history.replaceState(null, '', '?year=' + y + '&month=' + m + (DEMO ? '&demo=1' : ''));
+    show();
+  }
+  $('prev').onclick = function () { go(-1); };
+  $('next').onclick = function () { go(1); };
+
+  function show() {
+    $('monthTitle').textContent = monthName(y, m);
+    load(y, m).then(render).catch(function (err) {
+      $('grid').innerHTML = '';
+      $('list').innerHTML = '<div class="status">Couldn’t load events right now. ' + esc(err.message) + '</div>';
+    });
+  }
+
+  // ---------- Save the monthly graphic as a PNG ----------
+  $('download').onclick = function () {
+    var btn = this, poster = $('poster');
+    btn.disabled = true; btn.textContent = 'Preparing…';
+    var lib = window.htmlToImage ? Promise.resolve() : new Promise(function (res, rej) {
+      var s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js';
+      s.onload = res; s.onerror = function () { rej(new Error('Could not load image tool')); };
+      document.head.appendChild(s);
+    });
+    lib.then(function () {
+      poster.classList.add('capture');
+      return window.htmlToImage.toPng(poster, { pixelRatio: 2, backgroundColor: '#ffffff' });
+    }).then(function (url) {
+      var a = document.createElement('a');
+      a.href = url; a.download = 'GAO-Events-' + monthName(y, m).replace(' ', '-') + '.png';
+      document.body.appendChild(a); a.click(); a.remove();
+    }).catch(function (e) { alert(e.message); })
+      .then(function () { poster.classList.remove('capture'); btn.disabled = false; btn.textContent = '⬇ Save image'; });
+  };
+
+  // ---------- Sample data for previewing (add ?demo=1 to the URL) ----------
+  function demoData(yy, mm) {
+    var mmp = String(mm).padStart(2, '0'), ev = [];
+    function at(d, h, mi, dur, title, loc, desc) {
+      var local = new Date(Date.UTC(yy, mm - 1, d, h + 5, mi)); // ~Eastern
+      ev.push({ id: title + d, title: title, start: local.toISOString(),
+        end: new Date(local.getTime() + dur * 3600e3).toISOString(), allDay: false, location: loc || '', description: desc || '' });
+    }
+    var dim = new Date(Date.UTC(yy, mm, 0)).getUTCDate();
+    for (var d = 1; d <= dim; d++) {
+      var dow = new Date(Date.UTC(yy, mm - 1, d)).getUTCDay();
+      if (dow === 0) at(d, 10, 30, 2, 'Sunday Worship Service', 'GAI Sanctuary', 'Join us for worship and the Word. All are welcome!');
+      if (dow === 3) at(d, 19, 0, 1.5, 'Midweek Bible Study', 'Fellowship Hall');
+      if (dow === 5 && d <= 7) at(d, 19, 30, 2, 'Youth Night', 'Youth Room');
+    }
+    at(14, 9, 0, 3, 'Community Food Drive', 'Church Parking Lot', 'Bring canned goods. Volunteers sign up: https://example.org/volunteer');
+    at(21, 18, 0, 2, "Women's Fellowship Dinner", 'Fellowship Hall');
+    ev.push({ id: 'conf', title: 'Leadership Retreat', start: yy + '-' + mmp + '-' + '27', end: yy + '-' + mmp + '-' + '29', allDay: true, location: 'Lake Wales, FL', description: '' });
+    return { year: yy, month: mm, subscribeUrl: 'https://calendar.google.com/', updated: new Date().toISOString(), events: ev };
+  }
+
+  show();
+})();
+</script>
+</body>
+</html>

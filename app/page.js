@@ -21,6 +21,8 @@ const LINK_BUTTONS = [
   { label: "Shabbat Schedule", url: "/shabbat.html" },
   { label: "Events", url: "/events.html" },
   { label: "Contact Us", url: "/contact.html" },
+  { label: "YouTube", url: "https://www.youtube.com/@GAAORL" },
+     { label: "Join Zoom", url: "https://us02web.zoom.us/j/83019568805" },
 ];
 
 // Styles for the button bar live here so this one file is all that changes.

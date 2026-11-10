@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>About Us · Great Awakening Orlando</title>
+<meta name="theme-color" content="#0f2347" />
+<style>
+  /* Great Awakening Orlando colors: royal navy + metallic gold on warm ivory */
+  :root {
+    --navy:#0f2347; --navy-2:#1c3f6e; --navy-soft:#e7ecf4;
+    --gold:#c9a13b; --gold-light:#f3d27a; --gold-deep:#9a7420;
+    --ivory:#fbf7ee; --cream:#f4ecdb; --ink:#14203a; --muted:#5d6478; --line:#e6dcc4;
+    --brown:#7a3e12;
+    --head: "Avenir Next Condensed","Helvetica Neue Condensed","Arial Narrow","Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --serif: Georgia,"Times New Roman",serif;
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; scroll-padding-top:70px; }
+  html, body { margin:0; background:var(--ivory); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased; }
+  body { font-size:18px; line-height:1.6; }
+  .wrap { max-width:680px; margin:0 auto; padding:16px 14px 40px; }
+  .back { color:var(--navy-2); text-decoration:none; font-weight:600; font-size:17px; }
+
+  /* ---------- Hero ---------- */
+  .hero { position:relative; margin-top:14px; border-radius:24px; overflow:hidden; text-align:center; color:#fff;
+    background:radial-gradient(120% 80% at 50% 0%, #24497d 0%, var(--navy) 55%, #0a1730 100%);
+    padding:30px 22px 34px; box-shadow:0 14px 34px rgba(15,35,71,.28); border:2px solid var(--gold); }
+  .hero::after { content:""; position:absolute; inset:8px; border:1px solid rgba(243,210,122,.35); border-radius:18px; pointer-events:none; }
+  .crest { width:112px; height:112px; border-radius:26px; display:block; margin:0 auto 14px;
+    box-shadow:0 0 0 3px var(--gold), 0 10px 26px rgba(0,0,0,.45); }
+  .welcome { font-family:var(--serif); font-style:italic; color:var(--gold-light); font-size:26px; margin:0; }
+  .hero h1 { font-family:var(--head); font-weight:800; text-transform:uppercase; letter-spacing:.02em;
+    font-size:clamp(32px, 9vw, 46px); line-height:1.02; margin:4px 0 10px; }
+  .assembly { display:flex; align-items:center; justify-content:center; gap:12px; font-family:var(--head);
+    font-weight:700; letter-spacing:.42em; color:var(--gold-light); font-size:19px; text-transform:uppercase; padding-left:.42em; }
+  .assembly::before, .assembly::after { content:""; height:2px; width:42px; background:linear-gradient(90deg,transparent,var(--gold)); }
+  .assembly::after { background:linear-gradient(90deg,var(--gold),transparent); }
+  .pillars { list-style:none; padding:0; margin:18px 0 0; display:flex; flex-wrap:wrap; justify-content:center; gap:8px; }
+  .pillars li { font-size:14px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:7px 12px;
+    border-radius:999px; border:1px solid rgba(243,210,122,.6); color:#fff; background:rgba(255,255,255,.06); }
+  .tagline { margin:20px 0 0; font-size:19px; font-weight:600; line-height:1.45; }
+  .tagline b { color:var(--gold-light); }
+
+  /* ---------- Section jump bar ---------- */
+  .jump { position:sticky; top:0; z-index:20; margin:16px -14px 0; padding:10px 14px;
+    background:rgba(251,247,238,.92); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line); display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; }
+  .jump::-webkit-scrollbar { display:none; }
+  .jump a { flex:none; text-decoration:none; font-weight:700; font-size:16px; color:var(--navy);
+    padding:9px 16px; border-radius:999px; border:2px solid var(--navy); transition:background .25s, color .25s; }
+  .jump a.on { background:var(--navy); color:var(--gold-light); }
+
+  /* ---------- Sections ---------- */
+  section { margin-top:26px; }
+  .sec-head { display:flex; align-items:center; gap:12px; margin:0 0 14px; }
+  .badge { flex:none; width:52px; height:52px; border-radius:50%; display:grid; place-items:center;
+    background:var(--navy); border:3px solid var(--gold); color:var(--gold-light); box-shadow:0 4px 12px rgba(15,35,71,.25); }
+  .badge svg { width:26px; height:26px; }
+  h2 { font-family:var(--head); text-transform:uppercase; font-weight:800; letter-spacing:.03em; font-size:30px;
+    margin:0; color:var(--navy); line-height:1.1; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:20px; padding:22px 20px;
+    box-shadow:0 6px 20px rgba(15,35,71,.07); }
+  .card p { margin:0 0 14px; }
+  .card p:last-child { margin-bottom:0; }
+  .lead { font-size:20px; font-weight:600; color:var(--navy); }
+  .ref { white-space:nowrap; color:var(--gold-deep); font-weight:600; }
+  .callout { border-left:4px solid var(--gold); background:var(--cream); border-radius:0 14px 14px 0; padding:14px 16px; }
+
+  .flourish { display:flex; align-items:center; justify-content:center; gap:10px; margin:30px 0 0; color:var(--gold); }
+  .flourish::before, .flourish::after { content:""; flex:1; max-width:140px; height:2px; }
+  .flourish::before { background:linear-gradient(90deg,transparent,var(--gold)); }
+  .flourish::after { background:linear-gradient(90deg,var(--gold),transparent); }
+  .flourish span { font-size:16px; }
+
+  /* Mission: gold path connecting each step */
+  .intro { font-family:var(--serif); font-style:italic; color:var(--brown); font-size:20px; margin:0 0 6px; }
+  .steps { list-style:none; margin:0; padding:0; position:relative; }
+  .steps::before { content:""; position:absolute; left:25px; top:30px; bottom:30px; width:3px; border-radius:3px;
+    background:linear-gradient(var(--gold-light),var(--gold),var(--gold-deep)); }
+  .steps li { position:relative; display:flex; gap:16px; padding:14px 0; }
+  .steps .badge { position:relative; z-index:1; }
+  .steps h3 { font-family:var(--head); text-transform:uppercase; font-size:21px; letter-spacing:.02em;
+    color:var(--navy); margin:2px 0 4px; line-height:1.15; }
+  .steps p { margin:0; }
+
+  /* Beliefs: tap to open */
+  .tools { display:flex; justify-content:space-between; align-items:center; gap:10px; margin:0 0 12px; }
+  .tools p { margin:0; color:var(--muted); font-size:16px; }
+  .toggle { flex:none; border:0; border-radius:999px; padding:10px 16px; font:inherit; font-size:15px; font-weight:700;
+    background:var(--navy-soft); color:var(--navy); cursor:pointer; }
+  details { background:#fff; border:1px solid var(--line); border-radius:16px; margin-bottom:10px;
+    box-shadow:0 3px 10px rgba(15,35,71,.05); overflow:hidden; transition:border-color .25s, box-shadow .25s; }
+  details[open] { border-color:var(--gold); box-shadow:0 8px 22px rgba(15,35,71,.1); }
+  summary { list-style:none; cursor:pointer; display:flex; align-items:center; gap:14px; padding:14px 16px; }
+  summary::-webkit-details-marker { display:none; }
+  .num { flex:none; width:42px; height:42px; border-radius:50%; display:grid; place-items:center; font-weight:800; font-size:18px;
+    background:var(--navy); color:var(--gold-light); border:2px solid var(--gold); }
+  summary h3 { flex:1; margin:0; font-family:var(--head); text-transform:uppercase; font-size:20px; letter-spacing:.02em; color:var(--navy); line-height:1.2; }
+  .chev { flex:none; width:22px; height:22px; color:var(--gold-deep); transition:transform .3s; }
+  details[open] .chev { transform:rotate(180deg); }
+  .body { padding:0 18px 18px 72px; }
+  .body p { margin:0; }
+
+  /* Commitment */
+  .commit { position:relative; border-radius:24px; overflow:hidden; color:#fff; padding:26px 22px 28px;
+    background:linear-gradient(160deg,#1c3f6e 0%,var(--navy) 60%,#0a1730 100%); border:2px solid var(--gold);
+    box-shadow:0 14px 34px rgba(15,35,71,.28); }
+  .commit h2 { color:var(--gold-light); }
+  .commit .badge { background:rgba(255,255,255,.06); }
+  .commit p { margin:0 0 14px; }
+  .commit strong { color:var(--gold-light); }
+  blockquote { margin:20px 0 0; padding:18px 0 0; border-top:1px solid rgba(243,210,122,.4); text-align:center; }
+  blockquote p { font-family:var(--serif); font-style:italic; font-size:23px; line-height:1.4; color:var(--gold-light); margin:0 0 8px; }
+  blockquote cite { font-style:normal; font-weight:700; letter-spacing:.12em; text-transform:uppercase; font-size:15px; color:#fff; }
+
+  /* Next steps */
+  .next { margin-top:26px; text-align:center; }
+  .next h2 { font-size:26px; margin-bottom:6px; }
+  .next > p { margin:0 0 16px; color:var(--muted); }
+  .buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .buttons a { display:block; text-decoration:none; text-align:center; padding:14px 10px; border-radius:999px;
+    font-weight:700; font-size:17px; border:2px solid var(--navy); color:var(--navy); background:#fff; }
+  .buttons a.primary { grid-column:1 / -1; background:var(--navy); color:var(--gold-light); border-color:var(--gold); }
+  .shalom { text-align:center; margin:30px 0 0; font-family:var(--serif); font-style:italic; font-size:22px; color:var(--brown); }
+  .foot { text-align:center; font-size:14px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:6px 0 0; font-weight:700; }
+
+  /* Gentle fade-and-rise as each part scrolls into view */
+  .js .reveal { opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
+  .js .reveal.in { opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior:auto; }
+    .js .reveal { opacity:1; transform:none; transition:none; }
+  }
+  @media (max-width:420px) {
+    .body { padding-left:18px; }
+    .card { padding:20px 16px; }
+  }
+</style>
+<script>document.documentElement.className = "js";</script>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="/">‹ Home</a>
+
+  <!-- ===== Welcome ===== -->
+  <header class="hero reveal">
+    <img class="crest" src="/icons/icon-512.png" alt="Great Awakening Assembly Orlando crest" />
+    <p class="welcome">Welcome to</p>
+    <h1>The Great Awakening</h1>
+    <div class="assembly">Assembly</div>
+    <ul class="pillars">
+      <li>Torah-Based</li><li>Spirit-Filled</li><li>Messianic</li><li>Set-Apart</li>
+    </ul>
+    <p class="tagline">Awakening the Dispersed. Proclaiming the <b>Truth</b>. Preparing the <b>Way</b>.</p>
+  </header>
+
+  <nav class="jump" aria-label="Sections">
+    <a href="#about">About Us</a>
+    <a href="#mission">Our Mission</a>
+    <a href="#beliefs">What We Believe</a>
+    <a href="#commitment">Our Commitment</a>
+  </nav>
+
+  <!-- ===== About Us ===== -->
+  <section id="about" class="reveal">
+    <div class="sec-head">
+      <span class="badge"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="6" r="3"/><circle cx="5" cy="8" r="2.4"/><circle cx="19" cy="8" r="2.4"/><path d="M8 21v-6a4 4 0 0 1 8 0v6zM1.5 21v-4.5a3.2 3.2 0 0 1 5.5-2.2V21zM22.5 21v-4.5a3.2 3.2 0 0 0-5.5-2.2V21z"/></svg></span>
+      <h2>About Us</h2>
+    </div>
+    <div class="card">
+      <p class="lead">We are a Torah-based, Spirit-filled Awakened Assembly. We actively teach the Hebrew foundations of the faith.</p>
+      <p>We observe the weekly Sabbath (on the seventh day), known as Saturday, just as did the Savior, <span class="ref">Luke 4:16</span>, as well as Paul and the Apostles, <span class="ref">Acts 13:42-46; 17:2; 18:4</span>.</p>
+      <p>Singing, preaching, prayer, prophecy, special music and familiar songs are a part of our worship. Our membership comes from nearly all denominations and all walks of life.</p>
+      <p>We are NOT associated with any man-made denomination. We are a non-sectarian, non-denominational, non-camp affiliated community of Believers.</p>
+      <p class="callout">We are a peaceful, Holy Spirit-filled, prophetic community that will never use race bait tactics in the name of religion, use ethnically divisive theology, or use suggestive claims of racial superiority. We believe, like many, any believer of any nationality, ethnicity, creed, or tongue can know the Most High through His Son, Yahusha HaMashiach (Messiah), or as some call “Jesus.”</p>
+    </div>
+  </section>
+
+  <div class="flourish" aria-hidden="true"><span>✦</span></div>
+
+  <!-- ===== Our Mission ===== -->
+  <section id="mission" class="reveal">
+    <div class="sec-head">
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg></span>
+      <h2>Our Mission</h2>
+    </div>
+    <div class="card">
+      <p class="intro">Our mission is to:</p>
+      <ol class="steps">
+        <li>
+          <span class="badge"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="6" r="3"/><circle cx="5" cy="8" r="2.4"/><circle cx="19" cy="8" r="2.4"/><path d="M8 21v-6a4 4 0 0 1 8 0v6zM1.5 21v-4.5a3.2 3.2 0 0 1 5.5-2.2V21zM22.5 21v-4.5a3.2 3.2 0 0 0-5.5-2.2V21z"/></svg></span>
+          <div><h3>Raise Awareness</h3><p>about how African Americans and other Bantus Negroes around the world are fulfilling biblical prophecy by rediscovering their ancient identity.</p></div>
+        </li>
+        <li>
+          <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 6c-2-1.5-5-2-9-2v14c4 0 7 .5 9 2 2-1.5 5-2 9-2V4c-4 0-7 .5-9 2z"/><path d="M12 6v14"/></svg></span>
+          <div><h3>Preach the Gospel</h3><p>to the lost tribes of Israel (<span class="ref">Matt. 15:24; 10:5</span>) and the nations.</p></div>
+        </li>
+        <li>
+          <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.8 3 2.8 15 0 18M12 3c-2.8 3-2.8 15 0 18"/></svg></span>
+          <div><h3>Awaken Israel Scattered</h3><p>all over the four corners of the earth (<span class="ref">Isaiah 11:12</span>).</p></div>
+        </li>
+        <li>
+          <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 4 2 3-2 4 1 5 4"/><path d="M6 13l4 4a1.5 1.5 0 0 0 2-2M10 15l2 2a1.5 1.5 0 0 0 2-2l-3-3M13 14l1 1a1.5 1.5 0 0 0 2-2l-3-3"/></svg></span>
+          <div><h3>Build Bridges</h3><p>of relationship between affiliate Hebrew assemblies, outreach ministries, and organizations dedicated to awakening the dispersed of Israel in the communities they serve.</p></div>
+        </li>
+        <li>
+          <span class="badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 13.5l-.9-.8C8 10 6 8.2 6 6a3 3 0 0 1 6-.6A3 3 0 0 1 18 6c0 2.2-2 4-5.1 6.7z"/><path d="M2 14h3l4 3h5a1.5 1.5 0 0 0 0-3h-3M22 14h-3l-2 1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M2 20h5l4 1h4l7-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+          <div><h3>Support Mission &amp; Humanitarian Relief Initiatives</h3><p>where the dispersed are located, as a vehicle for the distribution of humanitarian goods and services to children and families.</p></div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="flourish" aria-hidden="true"><span>✦</span></div>
+
+  <!-- ===== What We Believe ===== -->
+  <section id="beliefs" class="reveal">
+    <div class="sec-head">
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21V9M6 21h12M12 9c0-3 1-5 0-7-1 2 0 4 0 7zM5 5v4a7 7 0 0 0 14 0V5M8.5 5v4a3.5 3.5 0 0 0 7 0V5"/></svg></span>
+      <h2>What We Believe</h2>
+    </div>
+    <div class="tools">
+      <p>Tap any belief to read it.</p>
+      <button class="toggle" id="toggleAll" type="button">Open all</button>
+    </div>
+
+    <details open>
+      <summary><span class="num">1</span><h3>The Scriptures</h3><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="body"><p>We believe the Bible (the Tanakh and Apostolic Scriptures in their original autographs) is the inspired Word of God and our infallible guide in matters pertaining to conduct and doctrine (<span class="ref">II Tim. 3:16; I Thess. 2:13; 2 Peter 1:21</span>).</p></div>
+    </details>
+
+    <details>
+      <summary><span class="num">2</span><h3>Holy Spirit</h3><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="body"><p>We believe there is one Elohim/God, Yahuah, eternally existent and revealed in His Son, Yahusha. The Ruach HaKodesh (Holy Spirit) is the very spirit of Yahuah: the power, the character, the mind, the Nature, the Presence, the Teacher, and the Comforter that does the will of the Father, Yahuah.</p></div>
+    </details>
+
+    <details>
+      <summary><span class="num">3</span><h3>Water Baptism</h3><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="body"><p>We believe in the mandate to be baptized (immersed) as a public act of ritual conversion from death to life, from the kingdom of darkness to the kingdom of light, from Satan’s domain to Yah’s domain (<span class="ref">Matt. 28:18-20; Acts 2:37-38; Rom. 6:1-8</span>).</p></div>
+    </details>
+
+    <details>
+      <summary><span class="num">4</span><h3>Baptism of the Holy Spirit</h3><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="body"><p>We believe the Baptism in the Holy Spirit and fire is a gift from God as promised by Yahusha the Messiah to all believers, and is received subsequent to the New Birth (<span class="ref">Matt. 3:11; John 14:16, 17; Acts 1:8; Acts 2:38, 39</span>).</p></div>
+    </details>
+
+    <details>
+      <summary><span class="num">5</span><h3>Yahusha the Messiah</h3><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="body"><p>We believe in Yahusha Ha-Mashiach as the only begotten Son of YAHUAH, in His virgin birth, in His sinless life, in His vicarious and atoning death through His shed blood, in His bodily resurrection, in His ascension to the right hand of the Father, and in His personal return in power and glory.</p></div>
+    </details>
+
+    <details>
+      <summary><span class="num">6</span><h3>Israel</h3><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="body"><p>We believe in God’s everlasting covenant relationship with the Hebrew people, including the physical (Land of Israel) and the spiritual blessings (<span class="ref">Genesis 12:1-3, 17:7; Jeremiah 31:31-37</span>). In the end times, after tribulation, all of Israel will be saved (<span class="ref">Zechariah 14; Romans 11</span>).</p></div>
+    </details>
+
+    <details>
+      <summary><span class="num">7</span><h3>The Gentiles</h3><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="body"><p>We believe Gentiles (non-Hebrews) who place their faith and trust in Yahusha the Messiah as Lord and Savior are grafted into Israel through a born again experience. As adopted Gentiles, they shall be afforded all the rights, privileges, and responsibilities of being full members of the commonwealth of Israel.</p></div>
+    </details>
+
+    <details>
+      <summary><span class="num">8</span><h3>The Resurrection</h3><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="body"><p>We believe in the personal, physical return, in power and glory, of Yahusha the Messiah to judge the living and the dead (<span class="ref">John 14:1-4; Acts 1:9-11; I Cor. 15:20-28; Hebrews 9:23-28</span>). We believe in the physical resurrection of both the saved and the lost.</p></div>
+    </details>
+
+    <details>
+      <summary><span class="num">9</span><h3>Sanctification</h3><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="body"><p>We believe that the Torah (five books of Moses) is a comprehensive summary of God’s foundational laws and ways, as found in both the Tanakh and Apostolic Scriptures. Without holiness no man can see God. We are set-apart by keeping God’s laws, statutes, and commandments.</p></div>
+    </details>
+
+    <details>
+      <summary><span class="num">10</span><h3>Race / Identity</h3><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="body"><p>We reject the idea that race and ethnicity play a role in salvation. While the Assembly does teach that the true Israelites in the Bible were people of color, it has nothing to do with salvation by grace alone (<span class="ref">Ephesians 2:8-9</span>).</p></div>
+    </details>
+  </section>
+
+  <div class="flourish" aria-hidden="true"><span>✦</span></div>
+
+  <!-- ===== Our Commitment ===== -->
+  <section id="commitment" class="commit reveal">
+    <div class="sec-head">
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z"/><path d="M12 7v10M8.5 9v2a3.5 3.5 0 0 0 7 0V9M9.5 17h5"/></svg></span>
+      <h2>Our Commitment</h2>
+    </div>
+    <p>We have been enlightened, enriched, and edified by many streams of <strong>BIBLICAL</strong> truth.</p>
+    <p>We feel, however, that those considering becoming a member of our community must know the fundamental truths in which we believe and seek to live by.</p>
+    <blockquote>
+      <p>“And ye shall know the truth, and the truth shall make you free.”</p>
+      <cite>— John 8:32</cite>
+    </blockquote>
+  </section>
+
+  <!-- ===== Next steps ===== -->
+  <section class="next reveal">
+    <h2>Come Worship With Us</h2>
+    <p>We would love to welcome you on Shabbat.</p>
+    <div class="buttons">
+      <a class="primary" href="/shabbat.html">Shabbat Schedule</a>
+      <a href="/events.html">Events</a>
+      <a href="/contact.html">Contact Us</a>
+    </div>
+  </section>
+
+  <p class="shalom">Shalom</p>
+  <p class="foot">Great Awakening Orlando</p>
+</div>
+
+<script>
+(function () {
+  // Fade each section in as it scrolls into view
+  var items = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    items.forEach(function (el) { io.observe(el); });
+  } else {
+    items.forEach(function (el) { el.classList.add("in"); });
+  }
+
+  // Highlight the section button for the part currently on screen
+  var links = document.querySelectorAll(".jump a");
+  var ids = ["about", "mission", "beliefs", "commitment"];
+  var last = null;
+  function mark() {
+    var current = ids[0];
+    ids.forEach(function (id) {
+      var s = document.getElementById(id);
+      if (s && s.getBoundingClientRect().top < window.innerHeight * 0.35) current = id;
+    });
+    if (current === last) return;
+    last = current;
+    links.forEach(function (a) {
+      var on = a.getAttribute("href") === "#" + current;
+      a.classList.toggle("on", on);
+      if (on && a.scrollIntoView && a.parentNode.scrollWidth > a.parentNode.clientWidth) {
+        a.parentNode.scrollTo({ left: a.offsetLeft - 14, behavior: "smooth" });
+      }
+    });
+  }
+  window.addEventListener("scroll", mark, { passive: true });
+  mark();
+
+  // Open all / Close all beliefs
+  var btn = document.getElementById("toggleAll");
+  var all = document.querySelectorAll("#beliefs details");
+  btn.addEventListener("click", function () {
+    var open = btn.textContent === "Open all";
+    all.forEach(function (d) { d.open = open; });
+    btn.textContent = open ? "Close all" : "Open all";
+  });
+})();
+</script>
+</body>
+</html>

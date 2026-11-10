@@ -17,7 +17,7 @@ const giveUrl = (
 // email link, written like: "mailto:office@yourchurch.org"
 const LINK_BUTTONS = [
   { label: "2027 Feast Days", url: "" },
-  { label: "About Us", url: "" },
+  { label: "About Us", url: "/about.html" },
   { label: "Shabbat Schedule", url: "/shabbat.html" },
   { label: "Events", url: "/events.html" },
   { label: "Contact Us", url: "/contact.html" },

@@ -20,7 +20,7 @@ const LINK_BUTTONS = [
   { label: "About Us", url: "" },
   { label: "Shabbat Schedule", url: "" },
   { label: "Events", url: "" },
-  { label: "Contact Us", url: "" },
+  { label: "Contact Us", "/contact.html" },
 ];
 
 // Styles for the button bar live here so this one file is all that changes.

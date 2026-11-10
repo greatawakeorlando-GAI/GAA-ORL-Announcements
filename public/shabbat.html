@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Shabbat Schedule · Great Awakening Orlando</title>
+<meta name="theme-color" content="#1c3f6e" />
+<style>
+  /* To update each month: upload a new image named exactly  shabbat-schedule.jpg
+     into the public folder on GitHub (replace the old one). Nothing else changes. */
+  :root { --blue:#1c3f6e; --blue-dark:#122a4b; --blue-soft:#e6edf6; --ink:#0f1a33; --muted:#5b6785; --bg:#f4f7fd; }
+  * { box-sizing:border-box; }
+  html, body { margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  .wrap { max-width:1000px; margin:0 auto; padding:16px 14px 48px; }
+  .top { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+  .back { color:var(--blue); text-decoration:none; font-weight:600; font-size:17px; white-space:nowrap; }
+  .btn { display:inline-block; border-radius:999px; padding:10px 16px; font-size:15px; font-weight:700;
+    background:var(--blue-soft); color:var(--blue-dark); text-decoration:none; }
+  .card { margin-top:14px; background:#fff; border-radius:22px; overflow:hidden; box-shadow:0 10px 30px rgba(18,48,138,.12); }
+  .head { background:linear-gradient(135deg,var(--blue) 0%,var(--blue-dark) 100%); color:#fff; padding:20px 22px; }
+  .org { font-size:13px; letter-spacing:.12em; text-transform:uppercase; opacity:.85; font-weight:700; }
+  h1 { font-size:32px; margin:4px 0 0; }
+  .img-wrap { display:block; width:100%; padding:0; border:0; background:#fff; cursor:zoom-in; }
+  .viewer { position:fixed; inset:0; background:rgba(8,14,30,.94); display:none; z-index:50; overflow:auto; }
+  .viewer.open { display:flex; align-items:center; }
+  .viewer img { display:block; flex:none; width:200vw; height:auto; }
+  .viewer .tip { position:fixed; bottom:calc(16px + env(safe-area-inset-bottom)); left:0; right:0; text-align:center; color:#fff; font-size:15px; opacity:.8; }
+  @media (orientation:landscape) { .viewer img { width:100vw; max-height:none; } .viewer .tip { display:none; } }
+  .close { position:fixed; top:calc(12px + env(safe-area-inset-top)); right:12px; z-index:51; border:0; border-radius:999px; padding:12px 18px; font-size:17px; font-weight:700; background:#fff; color:var(--ink); cursor:pointer; }
+  .img-wrap img { display:block; width:100%; height:auto; }
+  .hint { text-align:center; color:var(--muted); font-size:15px; padding:12px 16px 16px; margin:0; }
+  .missing { padding:40px 20px; text-align:center; color:var(--muted); font-size:18px; display:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="back" href="/">‹ Home</a>
+    <a class="btn" id="dl" href="/shabbat-schedule.jpg" download="Shabbat-Schedule.jpg">⬇ Save image</a>
+  </div>
+
+  <div class="card">
+    <div class="head">
+      <div class="org">Great Awakening Orlando</div>
+      <h1>Shabbat Schedule</h1>
+    </div>
+    <button class="img-wrap" id="full" type="button" aria-label="View full size">
+      <img id="img" src="/shabbat-schedule.jpg" alt="Shabbat schedule for this month" />
+    </button>
+    <div class="missing" id="missing">This month's schedule will be posted soon.</div>
+    <p class="hint">Tap the image to view it larger. Pinch to zoom.</p>
+  </div>
+</div>
+<div class="viewer" id="viewer"><button class="close" id="close" type="button">✕ Close</button><img id="big" alt="Shabbat schedule, full size" /><div class="tip">Swipe sideways to read · Turn your phone for a full view</div></div>
+<script>
+  // Always load the newest upload (skip any old copy the phone saved).
+  var v = '?v=' + Date.now();
+  var img = document.getElementById('img');
+  img.src = '/shabbat-schedule.jpg' + v;
+  var viewer = document.getElementById('viewer');
+  document.getElementById('big').src = '/shabbat-schedule.jpg' + v;
+  document.getElementById('full').onclick = function () { viewer.classList.add('open'); };
+  document.getElementById('close').onclick = function () { viewer.classList.remove('open'); };
+  img.onerror = function () {
+    document.getElementById('full').style.display = 'none';
+    document.getElementById('missing').style.display = 'block';
+  };
+</script>
+</body>
+</html>

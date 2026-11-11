@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>2027 Feast Days · Great Awakening Orlando</title>
+<meta name="theme-color" content="#0f2347" />
+<style>
+  /* Great Awakening Orlando colors: royal navy + metallic gold on warm ivory */
+  :root {
+    --navy:#0f2347; --navy-2:#1c3f6e; --navy-soft:#e7ecf4;
+    --gold:#c9a13b; --gold-light:#f3d27a; --gold-deep:#9a7420;
+    --ivory:#fbf7ee; --cream:#f4ecdb; --rest:#fff4d9; --ink:#14203a; --muted:#5d6478; --line:#e6dcc4;
+    --brown:#7a3e12;
+    --head: "Avenir Next Condensed","Helvetica Neue Condensed","Arial Narrow","Roboto Condensed",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --serif: Georgia,"Times New Roman",serif;
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; scroll-padding-top:70px; }
+  html, body { margin:0; background:var(--ivory); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; -webkit-font-smoothing:antialiased; }
+  body { font-size:18px; line-height:1.55; }
+  .wrap { max-width:680px; margin:0 auto; padding:16px 14px 40px; }
+  .top { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+  .back { color:var(--navy-2); text-decoration:none; font-weight:600; font-size:17px; }
+  .print { border:0; border-radius:999px; padding:10px 16px; font:inherit; font-size:15px; font-weight:700;
+    background:var(--navy-soft); color:var(--navy); cursor:pointer; }
+
+  /* ---------- Hero ---------- */
+  .hero { position:relative; margin-top:14px; border-radius:24px; overflow:hidden; text-align:center; color:#fff;
+    background:radial-gradient(120% 80% at 50% 0%, #24497d 0%, var(--navy) 55%, #0a1730 100%);
+    padding:28px 20px 30px; box-shadow:0 14px 34px rgba(15,35,71,.28); border:2px solid var(--gold); }
+  .hero::after { content:""; position:absolute; inset:8px; border:1px solid rgba(243,210,122,.35); border-radius:18px; pointer-events:none; }
+  .kicker { font-family:var(--serif); font-style:italic; color:var(--gold-light); font-size:22px; margin:0; }
+  .hero h1 { font-family:var(--head); font-weight:800; text-transform:uppercase; letter-spacing:.02em;
+    font-size:clamp(36px, 10vw, 50px); line-height:1.02; margin:6px 0 8px; }
+  .sub { display:flex; align-items:center; justify-content:center; gap:12px; font-family:var(--head); font-weight:700;
+    letter-spacing:.3em; color:var(--gold-light); font-size:17px; text-transform:uppercase; padding-left:.3em; }
+  .sub::before, .sub::after { content:""; height:2px; width:36px; background:linear-gradient(90deg,transparent,var(--gold)); }
+  .sub::after { background:linear-gradient(90deg,var(--gold),transparent); }
+  .anchor { margin:18px auto 0; max-width:440px; padding:12px 16px; border-radius:16px; font-size:17px; line-height:1.45;
+    border:1px solid rgba(243,210,122,.55); background:rgba(255,255,255,.06); }
+  .anchor span { display:block; font-size:13px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--gold-light); margin-bottom:2px; }
+
+  /* ---------- Next up ---------- */
+  .next { display:none; margin-top:16px; border-radius:20px; padding:18px 18px 18px 20px; background:#fff;
+    border:2px solid var(--gold); box-shadow:0 8px 22px rgba(15,35,71,.1); }
+  .next.show { display:flex; gap:16px; align-items:center; }
+  .count { flex:none; width:86px; height:86px; border-radius:50%; background:var(--navy); color:var(--gold-light);
+    border:3px solid var(--gold); display:flex; flex-direction:column; align-items:center; justify-content:center; line-height:1; }
+  .count b { font-size:30px; font-weight:800; }
+  .count small { font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; margin-top:4px; color:#fff; }
+  .next .lbl { font-size:13px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--gold-deep); }
+  .next h2 { margin:2px 0 2px; font-size:24px; }
+  .next p { margin:0; color:var(--muted); font-size:16px; }
+
+  /* ---------- Jump bar ---------- */
+  .jump { position:sticky; top:0; z-index:20; margin:16px -14px 0; padding:10px 14px;
+    background:rgba(251,247,238,.92); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line); display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; }
+  .jump::-webkit-scrollbar { display:none; }
+  .jump a { flex:none; text-decoration:none; font-weight:700; font-size:16px; color:var(--navy);
+    padding:9px 16px; border-radius:999px; border:2px solid var(--navy); transition:background .25s, color .25s; }
+  .jump a.on { background:var(--navy); color:var(--gold-light); }
+
+  /* ---------- Sections ---------- */
+  section { margin-top:26px; }
+  .sec-head { display:flex; align-items:center; gap:12px; margin:0 0 6px; }
+  .badge { flex:none; width:52px; height:52px; border-radius:50%; display:grid; place-items:center;
+    background:var(--navy); border:3px solid var(--gold); color:var(--gold-light); box-shadow:0 4px 12px rgba(15,35,71,.25); }
+  .badge svg { width:26px; height:26px; }
+  h2 { font-family:var(--head); text-transform:uppercase; font-weight:800; letter-spacing:.03em; font-size:30px;
+    margin:0; color:var(--navy); line-height:1.1; }
+  .season { margin:0 0 14px 64px; font-family:var(--serif); font-style:italic; color:var(--brown); font-size:18px; }
+
+  /* Feast cards on a gold path */
+  .path { position:relative; }
+  .path::before { content:""; position:absolute; left:25px; top:26px; bottom:26px; width:3px; border-radius:3px;
+    background:linear-gradient(var(--gold-light),var(--gold),var(--gold-deep)); }
+  .feast { position:relative; display:flex; gap:14px; margin-bottom:14px; }
+  .dot { position:relative; z-index:1; flex:none; width:52px; height:52px; border-radius:50%; background:var(--navy);
+    border:3px solid var(--gold); color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; line-height:1; }
+  .dot small { font-size:11px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--gold-light); }
+  .dot b { font-size:19px; font-weight:800; margin-top:2px; }
+  .card { flex:1; background:#fff; border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:16px;
+    padding:14px 16px; box-shadow:0 4px 14px rgba(15,35,71,.06); transition:opacity .3s; }
+  .card.rest { background:var(--rest); }
+  .he { font-family:var(--serif); font-style:italic; color:var(--gold-deep); font-size:17px; }
+  .card h3 { margin:0 0 4px; font-family:var(--head); text-transform:uppercase; letter-spacing:.02em; font-size:22px; color:var(--navy); line-height:1.15; }
+  .date { font-weight:800; font-size:19px; }
+  .eve { font-size:16px; color:var(--muted); margin-top:2px; }
+  .eve::before { content:"☾ "; color:var(--gold-deep); }
+  .meta { display:flex; flex-wrap:wrap; gap:6px 8px; margin-top:10px; align-items:center; }
+  .pill { font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:4px 10px; border-radius:999px;
+    background:var(--navy-soft); color:var(--navy); }
+  .pill.nowork { background:var(--navy); color:var(--gold-light); }
+  .ref { font-size:15px; font-weight:600; color:var(--gold-deep); }
+  .feast.past .card { opacity:.55; }
+  .feast.past .dot { background:#8b93a6; border-color:#c9c2b0; }
+  .feast.now .card { border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,161,59,.35), 0 8px 22px rgba(15,35,71,.12); }
+  .feast .badge-next { display:none; }
+  .feast.now .badge-next { display:inline-block; font-size:12px; font-weight:800; letter-spacing:.1em; text-transform:uppercase;
+    background:var(--gold); color:var(--navy); padding:3px 9px; border-radius:999px; margin-bottom:6px; }
+
+  /* Year at a glance: phone-friendly list */
+  .glance { background:#fff; border:1px solid var(--line); border-radius:20px; overflow:hidden; box-shadow:0 6px 20px rgba(15,35,71,.07); }
+  .row { display:grid; grid-template-columns:96px 1fr auto; gap:12px; align-items:center; padding:12px 16px; border-bottom:1px solid var(--line); }
+  .row:last-child { border-bottom:0; }
+  .row.rest { background:var(--rest); }
+  .row .d { font-weight:800; font-size:16px; color:var(--navy); line-height:1.25; }
+  .row .n { font-size:17px; line-height:1.3; }
+  .row .n small { display:block; color:var(--muted); font-size:14px; }
+  .row .md { text-align:right; font-size:14px; color:var(--muted); white-space:nowrap; }
+  .row .md b { display:block; color:var(--gold-deep); font-size:13px; letter-spacing:.06em; text-transform:uppercase; }
+  .key { display:flex; align-items:center; gap:8px; font-size:15px; color:var(--muted); margin:10px 2px 0; }
+  .key i { width:18px; height:18px; border-radius:5px; background:var(--rest); border:1px solid var(--gold); display:inline-block; }
+
+  /* Shabbat */
+  .shabbat { border-radius:24px; color:#fff; padding:24px 22px; text-align:center;
+    background:linear-gradient(160deg,#1c3f6e 0%,var(--navy) 60%,#0a1730 100%); border:2px solid var(--gold);
+    box-shadow:0 14px 34px rgba(15,35,71,.28); }
+  .shabbat h2 { color:var(--gold-light); }
+  .shabbat .big { font-family:var(--serif); font-size:26px; margin:10px 0 4px; }
+  .shabbat p { margin:0; }
+  .shabbat .meta { justify-content:center; }
+  .shabbat .ref { color:var(--gold-light); }
+  .shabbat .pill.nowork { background:var(--gold); color:var(--navy); }
+
+  .note { margin-top:22px; background:var(--cream); border-left:4px solid var(--gold); border-radius:0 14px 14px 0;
+    padding:14px 16px; font-size:16px; color:#3a4155; }
+  .note p { margin:0 0 8px; } .note p:last-child { margin:0; }
+  .buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:22px; }
+  .buttons a { display:block; text-decoration:none; text-align:center; padding:14px 10px; border-radius:999px;
+    font-weight:700; font-size:17px; border:2px solid var(--navy); color:var(--navy); background:#fff; }
+  .shalom { text-align:center; margin:28px 0 0; font-family:var(--serif); font-style:italic; font-size:22px; color:var(--brown); }
+  .foot { text-align:center; font-size:14px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:6px 0 0; font-weight:700; }
+
+  /* Gentle fade-and-rise as each part scrolls into view */
+  .js .reveal { opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
+  .js .reveal.in { opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior:auto; }
+    .js .reveal { opacity:1; transform:none; transition:none; }
+  }
+  @media (max-width:400px) { .row { grid-template-columns:80px 1fr; } .row .md { grid-column:2; text-align:left; } .row .md b { display:inline; margin-right:6px; } }
+  @media print {
+    .top, .jump, .next, .buttons { display:none !important; }
+    body { background:#fff; font-size:14px; }
+    .js .reveal { opacity:1; transform:none; }
+    .feast.past .card { opacity:1; }
+    .feast, .row, .shabbat { break-inside:avoid; }
+  }
+</style>
+<script>document.documentElement.className = "js";</script>
+</head>
+<body>
+<!--
+  HOW TO UPDATE FOR A NEW YEAR
+  Each feast below has  data-start="YYYY-MM-DD"  and  data-end="YYYY-MM-DD"  (the daytime date it falls on).
+  Change those, the dates written on the card, and the "Full Year at a Glance" list.
+  The "Next Appointed Time" box and the faded past feasts update by themselves from those dates.
+-->
+<div class="wrap">
+  <div class="top">
+    <a class="back" href="/">‹ Home</a>
+    <button class="print" type="button" onclick="window.print()">🖨 Print</button>
+  </div>
+
+  <!-- ===== Header ===== -->
+  <header class="hero reveal">
+    <p class="kicker">Ha Luach Ha Moedim</p>
+    <h1>2027 Feast Days</h1>
+    <div class="sub">Appointed Times</div>
+    <div class="anchor">
+      <span>New Year · Aviv 1</span>
+      Sunset Tue, Mar 23 to sunset Wed, Mar 24, 2027 (Pagan Gregorian)
+    </div>
+  </header>
+
+  <!-- ===== Next up (filled in automatically) ===== -->
+  <div class="next reveal" id="next" aria-live="polite">
+    <div class="count"><b id="nextDays">0</b><small id="nextUnit">days</small></div>
+    <div>
+      <div class="lbl">Next Appointed Time</div>
+      <h2 id="nextName"></h2>
+      <p id="nextWhen"></p>
+    </div>
+  </div>
+
+  <nav class="jump" aria-label="Sections">
+    <a href="#spring">Spring</a>
+    <a href="#fall">Fall</a>
+    <a href="#glance">Full Year</a>
+    <a href="#shabbat">Shabbat</a>
+  </nav>
+
+  <!-- ===== Spring ===== -->
+  <section id="spring" class="reveal">
+    <div class="sec-head">
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21V11"/><path d="M12 11C12 7 9 4 5 4c0 4 3 7 7 7zM12 13c0-4 3-7 7-7 0 4-3 7-7 7z"/></svg></span>
+      <h2>Spring Moedim</h2>
+    </div>
+    <p class="season">Months 1–3</p>
+    <div class="path">
+
+      <div class="feast" data-start="2027-04-06" data-end="2027-04-06" data-name="Pesach · Passover">
+        <div class="dot"><small>Apr</small><b>6</b></div>
+        <div class="card">
+          <span class="badge-next">Next up</span>
+          <div class="he">Pesach</div>
+          <h3>Passover</h3>
+          <div class="date">Tue, Apr 6</div>
+          <div class="eve">Begins at sunset Mon, Apr 5</div>
+          <div class="meta"><span class="pill">Month 1 · Day 14</span><span class="ref">Leviticus 23:5</span></div>
+        </div>
+      </div>
+
+      <div class="feast" data-start="2027-04-07" data-end="2027-04-13" data-name="Chag HaMatzot · Unleavened Bread">
+        <div class="dot"><small>Apr</small><b>7</b></div>
+        <div class="card rest">
+          <span class="badge-next">Next up</span>
+          <div class="he">Chag HaMatzot</div>
+          <h3>Unleavened Bread</h3>
+          <div class="date">Wed, Apr 7 – Tue, Apr 13</div>
+          <div class="eve">Begins at sunset Tue, Apr 6</div>
+          <div class="meta"><span class="pill">Month 1 · Days 15–21</span><span class="pill nowork">No work: Apr 7 &amp; Apr 13</span><span class="ref">Leviticus 23:6–8</span></div>
+        </div>
+      </div>
+
+      <div class="feast" data-start="2027-04-18" data-end="2027-04-18" data-name="Bikkurim · First Fruits">
+        <div class="dot"><small>Apr</small><b>18</b></div>
+        <div class="card">
+          <span class="badge-next">Next up</span>
+          <div class="he">Bikkurim</div>
+          <h3>First Fruits</h3>
+          <div class="date">Sun, Apr 18</div>
+          <div class="eve">Begins at sunset Sat, Apr 17</div>
+          <div class="meta"><span class="pill">Month 1 · Day 26</span><span class="ref">Leviticus 23:10–14</span></div>
+        </div>
+      </div>
+
+      <div class="feast" data-start="2027-05-06" data-end="2027-05-06" data-name="Pesach Sheni · Second Passover">
+        <div class="dot"><small>May</small><b>6</b></div>
+        <div class="card">
+          <span class="badge-next">Next up</span>
+          <div class="he">Pesach Sheni</div>
+          <h3>Second Passover</h3>
+          <div class="date">Thu, May 6</div>
+          <div class="eve">Begins at sunset Wed, May 5</div>
+          <div class="meta"><span class="pill">Month 2 · Day 14</span><span class="ref">Numbers 9:10–11</span></div>
+        </div>
+      </div>
+
+      <div class="feast" data-start="2027-06-06" data-end="2027-06-06" data-name="Shavu’ot · Feast of Weeks">
+        <div class="dot"><small>Jun</small><b>6</b></div>
+        <div class="card rest">
+          <span class="badge-next">Next up</span>
+          <div class="he">Shavu’ot</div>
+          <h3>Feast of Weeks</h3>
+          <div class="date">Sun, Jun 6</div>
+          <div class="eve">Begins at sunset Sat, Jun 5</div>
+          <div class="meta"><span class="pill">Month 3 · Day 15</span><span class="pill nowork">No work</span><span class="ref">Leviticus 23:15–21</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== Fall ===== -->
+  <section id="fall" class="reveal">
+    <div class="sec-head">
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15c4-1 7-4 8-10 1 6 4 9 8 10"/><path d="M3 15h18M7 15v5M17 15v5M7 20h10"/></svg></span>
+      <h2>Fall Moedim</h2>
+    </div>
+    <p class="season">The seventh month</p>
+    <div class="path">
+
+      <div class="feast" data-start="2027-09-22" data-end="2027-09-22" data-name="Yom Teru’ah · Day of Trumpets">
+        <div class="dot"><small>Sep</small><b>22</b></div>
+        <div class="card rest">
+          <span class="badge-next">Next up</span>
+          <div class="he">Yom Teru’ah</div>
+          <h3>Day of Trumpets</h3>
+          <div class="date">Wed, Sep 22</div>
+          <div class="eve">Begins at sunset Tue, Sep 21</div>
+          <div class="meta"><span class="pill">Month 7 · Day 1</span><span class="pill nowork">No work</span><span class="ref">Leviticus 23:23–25</span></div>
+        </div>
+      </div>
+
+      <div class="feast" data-start="2027-10-01" data-end="2027-10-01" data-name="Yom Kippurim · Day of Atonement">
+        <div class="dot"><small>Oct</small><b>1</b></div>
+        <div class="card rest">
+          <span class="badge-next">Next up</span>
+          <div class="he">Yom Kippurim</div>
+          <h3>Day of Atonement</h3>
+          <div class="date">Fri, Oct 1</div>
+          <div class="eve">Begins at sunset Thu, Sep 30</div>
+          <div class="meta"><span class="pill">Month 7 · Day 10</span><span class="pill nowork">No work</span><span class="ref">Leviticus 23:26–32</span></div>
+        </div>
+      </div>
+
+      <div class="feast" data-start="2027-10-06" data-end="2027-10-12" data-name="Sukkot · Feast of Tabernacles">
+        <div class="dot"><small>Oct</small><b>6</b></div>
+        <div class="card rest">
+          <span class="badge-next">Next up</span>
+          <div class="he">Sukkot</div>
+          <h3>Feast of Tabernacles</h3>
+          <div class="date">Wed, Oct 6 – Tue, Oct 12</div>
+          <div class="eve">Begins at sunset Tue, Oct 5</div>
+          <div class="meta"><span class="pill">Month 7 · Days 15–21</span><span class="pill nowork">No work: Oct 6</span><span class="ref">Leviticus 23:33–43</span></div>
+        </div>
+      </div>
+
+      <div class="feast" data-start="2027-10-13" data-end="2027-10-13" data-name="Shemini Atzeret · The Eighth Day">
+        <div class="dot"><small>Oct</small><b>13</b></div>
+        <div class="card rest">
+          <span class="badge-next">Next up</span>
+          <div class="he">Shemini Atzeret</div>
+          <h3>The Eighth Day</h3>
+          <div class="date">Wed, Oct 13</div>
+          <div class="eve">Begins at sunset Tue, Oct 12</div>
+          <div class="meta"><span class="pill">Month 7 · Day 22</span><span class="pill nowork">No work</span><span class="ref">Leviticus 23:36, 39</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== Full year ===== -->
+  <section id="glance" class="reveal">
+    <div class="sec-head">
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+      <h2>Full Year at a Glance</h2>
+    </div>
+    <p class="season">Month / day and day of the year</p>
+    <div class="glance">
+      <div class="row"><div class="d">Mar 23–24</div><div class="n">Rosh HaShanah<small>New Year, Aviv 1 (sunset to sunset)</small></div><div class="md"><b>1 / 1</b>Day 1</div></div>
+      <div class="row"><div class="d">Tue, Apr 6</div><div class="n">Pesach</div><div class="md"><b>1 / 14</b>Day 14</div></div>
+      <div class="row rest"><div class="d">Wed, Apr 7</div><div class="n">Chag HaMatzot<small>Day 1</small></div><div class="md"><b>1 / 15</b>Day 15</div></div>
+      <div class="row"><div class="d">Apr 8 – 12</div><div class="n">Chag HaMatzot<small>Days 2–6</small></div><div class="md"><b>1 / 16–20</b>Days 16–20</div></div>
+      <div class="row rest"><div class="d">Tue, Apr 13</div><div class="n">Chag HaMatzot<small>Day 7</small></div><div class="md"><b>1 / 21</b>Day 21</div></div>
+      <div class="row"><div class="d">Sun, Apr 18</div><div class="n">Bikkurim</div><div class="md"><b>1 / 26</b>Day 26</div></div>
+      <div class="row"><div class="d">Thu, May 6</div><div class="n">Pesach Sheni</div><div class="md"><b>2 / 14</b>Day 44</div></div>
+      <div class="row rest"><div class="d">Sun, Jun 6</div><div class="n">Shavu’ot</div><div class="md"><b>3 / 15</b>Day 75</div></div>
+      <div class="row rest"><div class="d">Wed, Sep 22</div><div class="n">Yom Teru’ah</div><div class="md"><b>7 / 1</b>Day 183</div></div>
+      <div class="row rest"><div class="d">Fri, Oct 1</div><div class="n">Yom Kippurim</div><div class="md"><b>7 / 10</b>Day 192</div></div>
+      <div class="row rest"><div class="d">Wed, Oct 6</div><div class="n">Sukkot<small>Day 1</small></div><div class="md"><b>7 / 15</b>Day 197</div></div>
+      <div class="row"><div class="d">Oct 7 – 12</div><div class="n">Sukkot<small>Days 2–7</small></div><div class="md"><b>7 / 16–21</b>Days 198–203</div></div>
+      <div class="row rest"><div class="d">Wed, Oct 13</div><div class="n">Shemini Atzeret</div><div class="md"><b>7 / 22</b>Day 204</div></div>
+    </div>
+    <p class="key"><i></i> Shaded = Shabbat-rest (no work) day</p>
+  </section>
+
+  <!-- ===== Shabbat ===== -->
+  <section id="shabbat" class="shabbat reveal">
+    <div class="sec-head" style="justify-content:center">
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 21h8M12 21v-6M7 4v4a5 5 0 0 0 10 0V4"/><path d="M12 2v3"/></svg></span>
+      <h2>Shabbat</h2>
+    </div>
+    <p class="big">Every Saturday</p>
+    <p>Sunset Friday to sunset Saturday</p>
+    <div class="meta"><span class="pill nowork">No work</span><span class="ref">Leviticus 23:3</span></div>
+  </section>
+
+  <div class="note reveal">
+    <p>Dates follow the Enochian (364-day) calendar anchored to Aviv 1, which begins at sunset on March 23 and ends at sunset on March 24.</p>
+    <p>Each day runs from sunset to sunset, so observances begin at sunset the evening before the date shown.</p>
+  </div>
+
+  <div class="buttons">
+    <a href="/shabbat.html">Shabbat Schedule</a>
+    <a href="/events.html">Events</a>
+  </div>
+
+  <p class="shalom">Shalom</p>
+  <p class="foot">Great Awakening Orlando</p>
+</div>
+
+<script>
+(function () {
+  // Fade each section in as it scrolls into view
+  var items = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.06 });
+    items.forEach(function (el) { io.observe(el); });
+  } else {
+    items.forEach(function (el) { el.classList.add("in"); });
+  }
+
+  // Fade feasts that are over, highlight the next one, and count down to it
+  function day(s) { var p = s.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  var now = new Date(); var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  var feasts = document.querySelectorAll(".feast"), next = null;
+  feasts.forEach(function (f) {
+    var end = day(f.dataset.end);
+    if (end < today) f.classList.add("past");
+    else if (!next) next = f;
+  });
+  if (next) {
+    next.classList.add("now");
+    var start = day(next.dataset.start), end = day(next.dataset.end);
+    var eve = next.querySelector(".eve").textContent;
+    var days = Math.round((start - today) / 86400000);
+    var box = document.getElementById("next");
+    document.getElementById("nextName").textContent = next.dataset.name;
+    if (days <= 0) {
+      document.getElementById("nextDays").textContent = "✦";
+      document.getElementById("nextUnit").textContent = "Today";
+      document.getElementById("nextWhen").textContent = "Happening now: " + next.querySelector(".date").textContent;
+    } else {
+      document.getElementById("nextDays").textContent = days;
+      document.getElementById("nextUnit").textContent = days === 1 ? "day" : "days";
+      document.getElementById("nextWhen").textContent = eve;
+    }
+    box.classList.add("show");
+  }
+
+  // Highlight the section button for the part currently on screen
+  var links = document.querySelectorAll(".jump a"), ids = ["spring", "fall", "glance", "shabbat"], last = null;
+  function mark() {
+    var current = ids[0];
+    ids.forEach(function (id) {
+      var s = document.getElementById(id);
+      if (s && s.getBoundingClientRect().top < window.innerHeight * 0.35) current = id;
+    });
+    if (current === last) return; last = current;
+    links.forEach(function (a) {
+      var on = a.getAttribute("href") === "#" + current;
+      a.classList.toggle("on", on);
+      if (on && a.parentNode.scrollWidth > a.parentNode.clientWidth) a.parentNode.scrollTo({ left: a.offsetLeft - 14, behavior: "smooth" });
+    });
+  }
+  window.addEventListener("scroll", mark, { passive: true });
+  mark();
+})();
+</script>
+</body>
+</html>

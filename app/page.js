@@ -21,6 +21,8 @@ const LINK_BUTTONS = [
   { label: "Shabbat Schedule", url: "/shabbat.html" },
   { label: "Events", url: "/events.html" },
   { label: "Contact Us", url: "/contact.html" },
+  { label: "YouTube", url: "https://www.youtube.com/@GAAORL" },
+  { label: "Join Zoom", url: "https://us02web.zoom.us/j/83019568805" },
 ];
 
 // Styles for the button bar live here so this one file is all that changes.
@@ -31,6 +33,7 @@ nav.tab-bar .tab.active { background: var(--brand); color: var(--brand-ink); }
 nav.tab-bar .tab.give { background: #ffbf00; color: #222222; border-color: #222222; }
 nav.tab-bar .tab.link:last-child:nth-child(odd) { grid-column: 1 / -1; }
 nav.tab-bar .tab.disabled { opacity: 0.45; cursor: default; }
+nav.tab-bar a.tab[href*="youtube.com"] { color: #cc0000; } /* YouTube red text */
 `;
 
 export const dynamic = "force-dynamic"; // always show the latest announcements
